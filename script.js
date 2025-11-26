@@ -1,46 +1,58 @@
-// Check if already logged in
-window.onload = function () {
-    let user = localStorage.getItem("loggedUser");
-    if (user) {
-        showProfile(JSON.parse(user));
+document.addEventListener("DOMContentLoaded", () => {
+    const loginSection = document.getElementById("login-section");
+    const aboutSection = document.getElementById("about-section");
+    const profileSection = document.getElementById("profile-section");
+    const profileInfo = document.getElementById("profile-info");
+    const logoutBtn = document.getElementById("logout-btn");
+    const loginForm = document.getElementById("login-form");
+
+    // Check if user already logged in
+    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
+
+    if (loggedUser) {
+        // User is logged in → Show about + profile + logout
+        showLoggedInUI(loggedUser);
+    } else {
+        // User not logged in → Show About + Login page
+        showLoggedOutUI();
     }
-};
 
-function login() {
-    let email = document.getElementById("email").value;
-    let mobile = document.getElementById("mobile").value;
+    // Login action
+    loginForm.addEventListener("submit", function (e) {
+        e.preventDefault();
 
-    if (email === "" || mobile === "") {
-        alert("Please fill all fields");
-        return;
+        const email = document.getElementById("email").value;
+        const mobile = document.getElementById("mobile").value;
+
+        const user = { email, mobile };
+
+        localStorage.setItem("loggedUser", JSON.stringify(user));
+        showLoggedInUI(user);
+    });
+
+    // Logout action
+    logoutBtn.addEventListener("click", () => {
+        localStorage.removeItem("loggedUser");
+        showLoggedOutUI();
+    });
+
+    // --- UI Functions ----
+    function showLoggedInUI(user) {
+        loginSection.style.display = "none";
+        aboutSection.style.display = "block";
+        profileSection.style.display = "block";
+        logoutBtn.style.display = "block";
+
+        profileInfo.innerHTML = `
+            <p><strong>Email:</strong> ${user.email}</p>
+            <p><strong>Mobile:</strong> ${user.mobile}</p>
+        `;
     }
 
-    let userData = { email: email, mobile: mobile };
-
-    // Save logged user
-    localStorage.setItem("loggedUser", JSON.stringify(userData));
-
-    // Count logins
-    let count = localStorage.getItem("loginCount");
-    count = count ? parseInt(count) + 1 : 1;
-    localStorage.setItem("loginCount", count);
-
-    showProfile(userData);
-}
-
-function showProfile(user) {
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("profileBox").style.display = "block";
-
-    document.getElementById("userEmail").innerText =
-        "Logged in as: " + user.email;
-
-    document.getElementById("loginCount").innerText =
-        localStorage.getItem("loginCount");
-}
-
-function logout() {
-    localStorage.removeItem("loggedUser");
-    document.getElementById("profileBox").style.display = "none";
-    document.getElementById("loginBox").style.display = "block";
-}
+    function showLoggedOutUI() {
+        loginSection.style.display = "block";
+        aboutSection.style.display = "block";
+        profileSection.style.display = "none";
+        logoutBtn.style.display = "none";
+    }
+});

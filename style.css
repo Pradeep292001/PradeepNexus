@@ -174,3 +174,33 @@ body {
     transform: translateY(-12px) scale(1.03);
     box-shadow: 0 0 35px #00eaff88;
 }
+.container {
+    width: 300px;
+    margin: 100px auto;
+    padding: 20px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px;
+    text-align: center;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px;
+    border: none;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #3e8e41;
+}
