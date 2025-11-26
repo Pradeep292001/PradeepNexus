@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #000428, #004e92);
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+
+        .login-box {
+            background: rgba(0, 0, 0, 0.65);
+            padding: 40px;
+            width: 350px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.2);
+        }
+
+        .login-box h2 {
+            margin-bottom: 25px;
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 8px;
+            border: none;
+            outline: none;
+            font-size: 16px;
+        }
+
+        button {
+            width: 95%;
+            padding: 12px;
+            background: #1db954;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background: #17a94e;
+        }
+
+        .error {
+            color: #ff4d4d;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <input type="text" id="userInput" placeholder="Email or Phone Number">
+        <input type="password" id="password" placeholder="Password">
+
+        <button onclick="login()">Login</button>
+
+        <p class="error" id="errorMsg"></p>
+    </div>
+
+<script>
+function login() {
+    let user = document.getElementById("userInput").value.trim();
+    let password = document.getElementById("password").value.trim();
+    let errorMsg = document.getElementById("errorMsg");
+
+    // Allowed credentials
+    const validUser1 = "devulapallipradeep99@gmail.com";
+    const validUser2 = "6281724612";
+    const validPassword = "12345";
+
+    if ((user === validUser1 || user === validUser2) && password === validPassword) {
+        window.location.href = "dashboard.html";
+    } else {
+        errorMsg.innerText = "Invalid login details!";
+    }
+}
+</script>
+
+</body>
+</html>
