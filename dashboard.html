@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome • Pradeep Nexus</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Poppins, sans-serif;
+            background: radial-gradient(circle at top, #00111f, #000000);
+            color: #fff;
+            text-align: center;
+        }
+
+        .container {
+            margin-top: 120px;
+        }
+
+        h1 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 18px;
+            opacity: 0.8;
+        }
+
+        .logout-btn {
+            margin-top: 40px;
+            padding: 12px 25px;
+            font-size: 18px;
+            border: none;
+            background: #ff3b3b;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .logout-btn:hover {
+            background: #ff1f1f;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome, Pradeep! 🚀</h1>
+        <p>You have successfully logged in.</p>
+
+        <button class="logout-btn" onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        // Redirect if not logged in
+        if (!localStorage.getItem("loggedIn")) {
+            window.location.href = "login.html";
+        }
+
+        function logout() {
+            localStorage.removeItem("loggedIn");
+            window.location.href = "login.html";
+        }
+    </script>
+
+</body>
+</html>

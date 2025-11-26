@@ -1,26 +1,23 @@
 function login() {
-    const userInput = document.getElementById("userInput").value.trim();
+    const user = document.getElementById("userInput").value;
+    const pass = document.getElementById("passwordInput").value;
 
-    if (userInput === "") {
-        alert("Please enter email or mobile number");
+    if (user === "" || pass === "") {
+        alert("Enter Email/Phone and Password");
         return;
     }
 
-    // Store login state
-    localStorage.setItem("loggedIn", "true");
-
-    // Redirect to home page
-    window.location.href = "home.html";
+    localStorage.setItem("loggedUser", user);
+    window.location.href = "dashboard.html";
 }
 
 function logout() {
-    localStorage.removeItem("loggedIn");
+    localStorage.clear();
     window.location.href = "index.html";
 }
 
-// Redirect to login if not logged in
-if (window.location.pathname.includes("home.html")) {
-    if (localStorage.getItem("loggedIn") !== "true") {
-        window.location.href = "index.html";
-    }
+// Show user on dashboard
+if (window.location.pathname.includes("dashboard.html")) {
+    document.getElementById("welcomeUser").innerText =
+        "Logged in as: " + localStorage.getItem("loggedUser");
 }
