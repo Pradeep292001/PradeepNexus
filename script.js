@@ -1,58 +1,26 @@
-document.addEventListener("DOMContentLoaded", () => {
-    const loginSection = document.getElementById("login-section");
-    const aboutSection = document.getElementById("about-section");
-    const profileSection = document.getElementById("profile-section");
-    const profileInfo = document.getElementById("profile-info");
-    const logoutBtn = document.getElementById("logout-btn");
-    const loginForm = document.getElementById("login-form");
+function login() {
+    const userInput = document.getElementById("userInput").value.trim();
 
-    // Check if user already logged in
-    const loggedUser = JSON.parse(localStorage.getItem("loggedUser"));
-
-    if (loggedUser) {
-        // User is logged in → Show about + profile + logout
-        showLoggedInUI(loggedUser);
-    } else {
-        // User not logged in → Show About + Login page
-        showLoggedOutUI();
+    if (userInput === "") {
+        alert("Please enter email or mobile number");
+        return;
     }
 
-    // Login action
-    loginForm.addEventListener("submit", function (e) {
-        e.preventDefault();
+    // Store login state
+    localStorage.setItem("loggedIn", "true");
 
-        const email = document.getElementById("email").value;
-        const mobile = document.getElementById("mobile").value;
+    // Redirect to home page
+    window.location.href = "home.html";
+}
 
-        const user = { email, mobile };
+function logout() {
+    localStorage.removeItem("loggedIn");
+    window.location.href = "index.html";
+}
 
-        localStorage.setItem("loggedUser", JSON.stringify(user));
-        showLoggedInUI(user);
-    });
-
-    // Logout action
-    logoutBtn.addEventListener("click", () => {
-        localStorage.removeItem("loggedUser");
-        showLoggedOutUI();
-    });
-
-    // --- UI Functions ----
-    function showLoggedInUI(user) {
-        loginSection.style.display = "none";
-        aboutSection.style.display = "block";
-        profileSection.style.display = "block";
-        logoutBtn.style.display = "block";
-
-        profileInfo.innerHTML = `
-            <p><strong>Email:</strong> ${user.email}</p>
-            <p><strong>Mobile:</strong> ${user.mobile}</p>
-        `;
+// Redirect to login if not logged in
+if (window.location.pathname.includes("home.html")) {
+    if (localStorage.getItem("loggedIn") !== "true") {
+        window.location.href = "index.html";
     }
-
-    function showLoggedOutUI() {
-        loginSection.style.display = "block";
-        aboutSection.style.display = "block";
-        profileSection.style.display = "none";
-        logoutBtn.style.display = "none";
-    }
-});
+}
